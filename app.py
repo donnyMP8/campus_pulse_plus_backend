@@ -5,7 +5,7 @@ from flask_limiter.util import get_remote_address
 from flask_marshmallow import Marshmallow
 from flask_sqlalchemy import SQLAlchemy
 from flask_talisman import Talisman
-
+from config import db
 from config import config
 
 # Initialize extensions
@@ -28,10 +28,10 @@ def create_app(config_name='default'):
     Talisman(app)  # Add security headers
 
     # Register blueprints
-    # from routes.admin_routes import admin_bp
-    # app.register_blueprint(admin_bp, url_prefix='/api/admin')
+    from routes.admin_routes import admin_bp
+    app.register_blueprint(admin_bp, url_prefix='/api/admin')
 
-    # from routes.analytics_routes import analytics_bp
+    #from routes.analytics_routes import analytics_bp
     # app.register_blueprint(analytics_bp, url_prefix='/api/analytics')
 
     # from routes.category_routes import category_bp
@@ -43,8 +43,8 @@ def create_app(config_name='default'):
     from routes.post_routes import post_bp
     app.register_blueprint(post_bp, url_prefix='/api')
 
-    # from routes.reaction_routes import reaction_bp
-    # app.register_blueprint(reaction_bp, url_prefix='/api/reactions')
+    from routes.reaction_routes import reaction_bp
+    app.register_blueprint(reaction_bp, url_prefix='/api/reactions')
 
     # Create database tables
     with app.app_context():
